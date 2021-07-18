@@ -10,10 +10,10 @@
 \usage{data("resCathData")}
 \format{
   A data frame with 23071 observations on the following 3 variables:
-  \describe{
+  \describe
     \item{\code{cod_cuve}}{character, cell code }
     \item{\code{agebsq}}{numeric, cell age in days}
-    \item{\code{rucd}}{numeric, cathode resistance}
+    \item{\code{rucv}}{numeric, cathode resistance}
   }
 }
 \details{
