@@ -1,13 +1,13 @@
 Package: modelCathRes
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Model Al Cells Cathode Resistance Evolution 
+Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Olivier",
+           family = "Granacher",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "olivier.granacher@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Tools to view and model the evolution of Aluminium cells cathode resistance with age.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)
