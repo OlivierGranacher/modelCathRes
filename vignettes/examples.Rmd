@@ -1,0 +1,27 @@
+---
+title: "modCathRes: Examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(modelCathRes)
+```
+
+# View cathode resistance for each pot
+
+```{r plotCathodeResistance}
+data("resCathData")
+d <- resCathData
+```
+

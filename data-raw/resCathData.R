@@ -9,5 +9,6 @@ d %>%
   inner_join(d, "cod_bsq") %>%
   na.omit() %>%
   select(cod_cuve, agebsq, rucv) -> resCathData
-  usethis::use_data(resCathData,
-                    overwrite = T)
+usethis::use_data(resCathData,
+  overwrite = T
+)

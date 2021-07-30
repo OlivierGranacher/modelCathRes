@@ -1,15 +1,18 @@
 Package: modelCathRes
 Title: Model Al Cells Cathode Resistance Evolution 
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person(given = "Olivier",
            family = "Granacher",
            role = c("aut", "cre"),
            email = "olivier.granacher@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Tools to view and model the evolution of Aluminium cells cathode resistance with age.
+Description: Tools to view and model the evolution of Aluminium cells
+    cathode resistance with age.
 License: MIT + file LICENSE
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
@@ -18,3 +21,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)
+VignetteBuilder: knitr

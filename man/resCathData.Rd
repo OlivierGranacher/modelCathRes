@@ -1,14 +1,14 @@
 \name{resCathData}
 \alias{resCathData}
 \docType{data}
-\title{resCathoData : cathode resistance data}
+\title{resCathData : cathode resistance data}
 \description{
-%%  ~~  Dataframe with 3 columns containing cathode resistance data~~
+%%  ~~  Dataframe with 3 columns containing cathode resistance data.~~
 }
 \usage{data("resCathData")}
 \format{
-  A data frame with 1979 observations on the following 3 variables:
-  \describe
+  A data frame with 1979 observations of the following 3 variables.
+  \describe{
     \item{\code{cod_cuve}}{character, cell code }
     \item{\code{agebsq}}{numeric, cell age in days}
     \item{\code{rucv}}{numeric, cathode resistance}
@@ -24,7 +24,7 @@
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
-data(resCathoData)
-str(resCathoData)
+data(resCathData)
+str(resCathData)
 }
 \keyword{datasets}
