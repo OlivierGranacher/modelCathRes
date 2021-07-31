@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "olivier.granacher@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Tools to view and model the evolution of Aluminium cells
+Description: Tools to view and model the evolution of Cathode Resistance of Aluminium cells
     cathode resistance with age.
 License: MIT + file LICENSE
 Suggests: 
@@ -22,3 +22,6 @@ RoxygenNote: 7.1.1
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr
+Imports: 
+    dplyr,
+    ggplot2

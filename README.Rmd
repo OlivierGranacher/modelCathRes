@@ -16,11 +16,9 @@ knitr::opts_chunk$set(
 # modelCathRes
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/modelCathRes)](https://CRAN.R-project.org/package=modelCathRes)
 <!-- badges: end -->
 
-The goal of modelCathRes is to model the evolution of aluminium cells cathode resistance with age.
+The goal of modelCathRes is to ...
 
 ## Installation
 
@@ -41,7 +39,16 @@ devtools::install_github("OlivierGranacher/modelCathRes")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-#library(modelCathRes)
+library(modelCathRes)
 ## basic example code
 ```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{r cars}
+summary(cars)
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
+
 

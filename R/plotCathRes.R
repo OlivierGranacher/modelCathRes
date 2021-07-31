@@ -6,15 +6,19 @@
 #' @param pot character pot variable
 #' @param age numeric pot age in days
 #' @param res numeric cathode resistance in microhm
+#' @param ncol number of columns for facetting
 #'
 #' @return ggplot with a facet for each pot
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' plotCathREs(d, cod_cuve, agebsq, rucv)
-#' }
+#' data("resCathData")
+#' d <- resCathData
+#' plotCathRes(d, cod_cuve, agebsq, rucv)
 #'
-plotCathRes <- function(d, pot, age, res) {
-
+#'
+plotCathRes <- function(d, pot, age, res, ncol = 3) {
+ggplot2::ggplot(data = d, ggplot2::aes(x = {{age}}, y ={{res}})) +
+    ggplot2::geom_point(shape = 21, fill = NA) +
+    ggplot2::facet_wrap(facets = dplyr::vars({{pot}}),ncol =  ncol)
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \title{resCathData : cathode resistance data}
 \description{
-%%  ~~  Dataframe with 3 columns containing cathode resistance data.~~
+Dataframe with 3 columns containing cathode resistance data.
 }
 \usage{data("resCathData")}
 \format{
@@ -15,13 +15,13 @@
   }
 }
 \details{
-%%  ~~ If necessary, more details than the __description__ above ~~
+
 }
 \source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
+
 }
 \references{
-%%  ~~ possibly secondary sources and usages ~~
+
 }
 \examples{
 data(resCathData)

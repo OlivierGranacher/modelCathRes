@@ -23,5 +23,12 @@ library(modelCathRes)
 ```{r plotCathodeResistance}
 data("resCathData")
 d <- resCathData
+head(d)
 ```
+
+```{r plotCathRes, include=TRUE, fig.dim=c(8, 8)}
+modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 3) +
+  ggplot2::labs(title = "Evolution of Cathode Resistance per pot")
+```
+
 
