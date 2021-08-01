@@ -18,17 +18,35 @@ knitr::opts_chunk$set(
 library(modelCathRes)
 ```
 
-# View cathode resistance for each pot
+# Get test data
 
-```{r plotCathodeResistance}
+```{r plotCathodeResistance, include=TRUE}
 data("resCathData")
 d <- resCathData
 head(d)
 ```
 
-```{r plotCathRes, include=TRUE, fig.dim=c(8, 8)}
-modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 3) +
-  ggplot2::labs(title = "Evolution of Cathode Resistance per pot")
+# Log fit for cathode resistance
+```{r lmModel, include=TRUE}
+funLog <- modelCathRes::findLogFunction(d, agebsq, rucv)
+# log fit curve
+curve <-  ggplot2::stat_function(xlim = c(min(d$agebsq),
+                                  max(d$agebsq)),
+                         fun = funLog,
+                         color = "darkred",
+                         size = 1.2) 
+ggplot2::ggplot(d, ggplot2::aes(x = agebsq, y = rucv)) +
+  ggplot2::geom_point(shape = 21, fill = NA, size = .9, alpha = .5) +
+  ggplot2::coord_cartesian(ylim = c(.4, 1.0)) +
+  curve
+```
+# View cathode resistance for each pot
+
+```{r plotCathRes, include=TRUE, fig.dim=c(8, 12)}
+modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
+  ggplot2::labs(title = "Evolution of Cathode Resistance per pot") +
+  ggplot2::coord_cartesian(ylim = c(.5, 1.0)) +
+  curve
 ```
 
 

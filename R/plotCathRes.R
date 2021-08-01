@@ -19,6 +19,6 @@
 #'
 plotCathRes <- function(d, pot, age, res, ncol = 3) {
 ggplot2::ggplot(data = d, ggplot2::aes(x = {{age}}, y ={{res}})) +
-    ggplot2::geom_point(shape = 21, fill = NA) +
+    ggplot2::geom_point(shape = 21, fill = NA, size = .9) +
     ggplot2::facet_wrap(facets = dplyr::vars({{pot}}),ncol =  ncol)
 }
