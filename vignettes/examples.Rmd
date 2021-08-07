@@ -29,7 +29,7 @@ d <- resCathData
 head(d)
 ```
 
-<<<<<<< HEAD
+
 # Log model for cathode resistance
 
 
@@ -57,17 +57,13 @@ modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
 ```
 
 # Comparing cathode resistance between 2 groups assuming same slope
+Using lm with log function for age dependance
 
-```{r}
-# Creating 2 groups in d
-d <-  d %>% 
+```{r compGroups, include=TRUE}
+# Creating 2 groups in data d
+d <- d %>% 
   mutate(group = ifelse(cod_cuve %in%  c("G148", "G110", "G096"), "GroupA", "GroupB"))
-nGroups <- length(unique(d$group))
-form <- as.formula("rucv ~ group + log(agebsq) - 1")
-
-mod <- lm(formula = form, 
-   data = d)
-summary(mod)$coefficients[2]
+modelCathRes:::calculateResDiff(d, group, agebsq, rucv)
 ```
 
 

@@ -1,6 +1,6 @@
 # Creating example data from raw data in R/sysdata.rda
-load("R/sysdata.rda")
-library(tidyverse, warn.conflicts = F)
+library(dplyr, warn.conflicts = F)
+d <- readRDS("data-raw/dj.rds")
 d %>%
   group_by(cod_bsq) %>%
   summarise(maxAge = max(agebsq)) %>%

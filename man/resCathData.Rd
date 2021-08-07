@@ -11,17 +11,8 @@ Dataframe with 3 columns containing cathode resistance data.
   \describe{
     \item{\code{cod_cuve}}{character, cell code }
     \item{\code{agebsq}}{numeric, cell age in days}
-    \item{\code{rucv}}{numeric, cathode resistance}
+    \item{\code{rucv}}{numeric, cathode resistance in micro-ohm}
   }
-}
-\details{
-
-}
-\source{
-
-}
-\references{
-
 }
 \examples{
 data(resCathData)
