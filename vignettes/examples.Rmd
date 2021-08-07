@@ -3,8 +3,10 @@ title: "modCathRes: Examples"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{examples}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -26,7 +28,8 @@ d <- resCathData
 head(d)
 ```
 
-# Log fit for cathode resistance
+# Log model for cathode resistance
+
 ```{r lmModel, include=TRUE}
 funLog <- modelCathRes::findLogFunction(d, agebsq, rucv)
 # log fit curve
@@ -40,13 +43,27 @@ ggplot2::ggplot(d, ggplot2::aes(x = agebsq, y = rucv)) +
   ggplot2::coord_cartesian(ylim = c(.4, 1.0)) +
   curve
 ```
-# View cathode resistance for each pot
+# View cathode resistance and model for each pot
 
 ```{r plotCathRes, include=TRUE, fig.dim=c(8, 12)}
 modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
   ggplot2::labs(title = "Evolution of Cathode Resistance per pot") +
   ggplot2::coord_cartesian(ylim = c(.5, 1.0)) +
   curve
+```
+
+# Comparing cathode resistance between 2 groups assuming same slope
+
+```{r}
+# Creating 2 groups in d
+d <-  d %>% 
+  mutate(group = ifelse(cod_cuve %in%  c("G148", "G110", "G096"), "GroupA", "GroupB"))
+nGroups <- length(unique(d$group))
+form <- as.formula("rucv ~ group + log(agebsq) - 1")
+
+mod <- lm(formula = form, 
+   data = d)
+summary(mod)$coefficients[2]
 ```
 
 
