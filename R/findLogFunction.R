@@ -10,6 +10,7 @@
 #' @return function
 #' @export
 #'
+#'
 #' @examples
 #' data("resCathData")
 #' d <- resCathData
@@ -18,7 +19,7 @@
 #'
 findLogFunction <- function(d, age, res) {
 # Formula a + b log(x)
-form <- paste0(names(select(d, {{res}})), " ~ log(", names(select(d, {{age}})), ")")
+form <- paste0(names(dplyr::select(d, {{res}})), " ~ log(", names(dplyr::select(d, {{age}})), ")")
 modlm <- lm(formula = form, d)
 a <- summary(modlm)$coefficients[[1]]
 b <- summary(modlm)$coefficients[[2]]
