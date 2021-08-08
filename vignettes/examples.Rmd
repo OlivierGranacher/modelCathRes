@@ -66,5 +66,29 @@ d <- d %>%
 modelCathRes:::calculateResDiff(d, group, agebsq, rucv)
 ```
 
+# Hierarchical model using lme4
+## Intercept only
 
+```{r lme4_1}
+form <- as.formula(rucv ~ 1  + (1 | cod_cuve))
+modLme1 <- lme4::lmer(formula = form,
+                      data = d)
+summary(modLme1)
+# Intercept per pot
+coef(modLme1)
+# Intercept 
+parameters::parameters(model = modLme1,
+                       effects = "all")
+```
+
+```{r lme4_2}
+form <- as.formula(rucv ~ 1 + log(agebsq) + ( 1 + log(agebsq) | cod_cuve))
+modLme2 <- lme4::lmer(formula = form,
+                      data = d)
+summary(modLme2)
+# Intercept per pot
+coef(modLme2)
+# Intercept global
+parameters::model_parameters(model = modLme2, effects = "all", dig = 3)
+```
 

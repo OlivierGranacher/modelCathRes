@@ -1,14 +1,9 @@
 # Creating example data from raw data in R/sysdata.rda
 library(dplyr, warn.conflicts = F)
 d <- readRDS("data-raw/dj.rds")
-d %>%
-  group_by(cod_bsq) %>%
-  summarise(maxAge = max(agebsq)) %>%
-  arrange(desc(maxAge)) %>%
-  head(10) %>%
-  inner_join(d, "cod_bsq") %>%
+resCathData <- d %>%
   na.omit() %>%
-  select(cod_cuve, agebsq, rucv) -> resCathData
+  select(group, cod_cuve, agebsq, rucv)
 usethis::use_data(resCathData,
   overwrite = T
 )
