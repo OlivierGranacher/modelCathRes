@@ -6,7 +6,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r, include = FALSE}
@@ -26,12 +26,15 @@ library(dplyr, quietly = T, warn.conflicts = F)
 ```{r plotCathodeResistance, include=TRUE}
 data("resCathData")
 d <- resCathData
+# reduce number of pots 
+d <- d %>% 
+  filter(cod_cuve %in% sample(unique(d$cod_cuve), 20))
 head(d)
 ```
 
+# Log model for cathode resistance for all data
 
-# Log model for cathode resistance
-
+Formula: $a + b.log(x)$
 
 ```{r lmModel, include=TRUE, fig.dim=c(8, 6)}
 funLog <- modelCathRes::findLogFunction(d, agebsq, rucv)
@@ -49,46 +52,38 @@ ggplot2::ggplot(d, ggplot2::aes(x = agebsq, y = rucv)) +
 
 # View cathode resistance and model for each pot
 
-```{r plotCathRes, include=TRUE, fig.dim=c(8, 8)}
-modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
+Same model $a + b.log(age)$ for all pots.
+
+```{r plotCathRes, include=TRUE, fig.dim=c(8, 12)}
+modelCathRes::plotCathRes(dplot, cod_cuve, agebsq, rucv, ncol = 4) +
   ggplot2::labs(title = "Evolution of Cathode Resistance per pot") +
   ggplot2::coord_cartesian(ylim = c(.5, 1.0)) +
   curve
 ```
 
-# Comparing cathode resistance between 2 groups assuming same slope
-Using lm with log function for age dependance
+# Comparing cathode resistance between groups 
+
+## lm model
+
+Using lm with log(age) function for age dependence and 0 intercept. Estimate in table is intitial value of cathode resistance.
 
 ```{r compGroups, include=TRUE}
-# Creating 2 groups in data d
-d <- d %>% 
-  mutate(group = ifelse(cod_cuve %in%  c("G148", "G110", "G096"), "GroupA", "GroupB"))
-modelCathRes:::calculateResDiff(d, group, agebsq, rucv)
+modelCathoRes1(d, group, agebsq, rucv)
 ```
 
-# Hierarchical model using lme4
-## Intercept only
+# lmer model 
 
-```{r lme4_1}
-form <- as.formula(rucv ~ 1  + (1 | cod_cuve))
+Each group has own log coefficient and intercept.
+
+```{r lme4_1, eval=FALSE}
+form <- as.formula(rucv ~ 0  + (1 + log(agebsq) | group))
 modLme1 <- lme4::lmer(formula = form,
                       data = d)
 summary(modLme1)
 # Intercept per pot
 coef(modLme1)
-# Intercept 
-parameters::parameters(model = modLme1,
-                       effects = "all")
-```
 
-```{r lme4_2}
-form <- as.formula(rucv ~ 1 + log(agebsq) + ( 1 + log(agebsq) | cod_cuve))
-modLme2 <- lme4::lmer(formula = form,
-                      data = d)
-summary(modLme2)
-# Intercept per pot
-coef(modLme2)
-# Intercept global
-parameters::model_parameters(model = modLme2, effects = "all", dig = 3)
+modelCathoRes2(d, group, agebsq, rucv)
+
 ```
 
