@@ -1,7 +1,7 @@
 #' modelCathoRes1
 #'
 #' Model cathode resistance per groups assuming
-#' the same evolution with age and 0 intercept - using lme4
+#' evolution with log of age and 0 fixed intercept - using lme4
 #'
 #' @param d data.frame with data
 #' @param group char with group names
@@ -33,7 +33,7 @@ modelCathoRes1 <- function(d, group, age, res) {
 #' @param age cell age
 #' @param res cathode resistance value
 #'
-#' @return summary of model using broom::tidy
+#' @return lmer model
 #' @export
 #'
 #'
@@ -45,6 +45,7 @@ modelCathoRes2 <- function(d, group, age, res) {
                  names(dplyr::select(d, {{group}})),
                  ") "
                  )
-  stats::coef(lme4::lmer(form, d))
+  # DAtaframe of random coefficients
+  lme4::lmer(form, d)
 }
 

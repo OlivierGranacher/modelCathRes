@@ -55,7 +55,7 @@ ggplot2::ggplot(d, ggplot2::aes(x = agebsq, y = rucv)) +
 Same model $a + b.log(age)$ for all pots.
 
 ```{r plotCathRes, include=TRUE, fig.dim=c(8, 12)}
-modelCathRes::plotCathRes(dplot, cod_cuve, agebsq, rucv, ncol = 4) +
+modelCathRes::plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
   ggplot2::labs(title = "Evolution of Cathode Resistance per pot") +
   ggplot2::coord_cartesian(ylim = c(.5, 1.0)) +
   curve
@@ -76,14 +76,12 @@ modelCathoRes1(d, group, agebsq, rucv)
 Each group has own log coefficient and intercept.
 
 ```{r lme4_1, eval=FALSE}
-form <- as.formula(rucv ~ 0  + (1 + log(agebsq) | group))
-modLme1 <- lme4::lmer(formula = form,
-                      data = d)
-summary(modLme1)
-# Intercept per pot
-coef(modLme1)
-
-modelCathoRes2(d, group, agebsq, rucv)
-
+# lmer model from lme4with formula rucv ~ 1  + (1 + log(agebsq) | group))
+(modLmer <- modelCathoRes2(d, cod_cuve, agebsq, rucv))
+# Coefficients for each group
+coef(modLmer)
+# Adding predictions to data
+d <- modelr::add_predictions(d, model = modLmer)
+# Graph of cathode resistance with age for 
 ```
 
