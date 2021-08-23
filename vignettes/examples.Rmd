@@ -94,12 +94,19 @@ modelCathRes::plotCathRes(d, group, agebsq, rucv, ncol = 4) +
 ## Stan model
 
 ```{r stan}
-stanData <- tidybayes::compose_data(select(d, c(group, rucv)))
-names(stanData) <- c("G", "N_G", "R", "N")
-samples <- rstan::sampling(object = rstan::stan_model("resGroup_nonCentered.stan"),
-                           data = stanData,
+# Test data
+n <- 1500 # nbs of obs per group
+dTest <- tibble(group = c(rep("A", n), rep("B", n)),
+                rucv = c(rnorm(n, 0.45, .08), rnorm(n, 0.55, .12))
+                ) 
+
+#stanData <- tidybayes::compose_data(select(d, c(group, rucv)))
+stanDataTest <- tidybayes::compose_data(dTest)
+names(stanDataTest) <- c("G", "N_G", "R", "N")
+samples <- rstan::sampling(object = rstan::stan_model("resGroup.stan"),
+                           data = stanDataTest,
                            chains = 2,
-                           iter = 1000)
+                           iter = 2000)
 samples
 ```
 
