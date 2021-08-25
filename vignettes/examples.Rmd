@@ -41,7 +41,7 @@ head(d)
 Formula: $a + b.log(x)$
 
 ```{r lmModel, include=TRUE, fig.dim=c(8, 6)}
-funLog <- modelCathRes::findLogFunction(d, agebsq, rucv)
+funLog <- findLogFunction(d, agebsq, rucv)
 # log fit curve
 curve <-  ggplot2::stat_function(xlim = c(min(d$agebsq),
                                   max(d$agebsq)),
@@ -65,7 +65,7 @@ plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
   curve
 ```
 
-# Comparing cathode resistance between groups 
+# Comparing cathode resistance between groups
 
 ## lm model
 
@@ -75,7 +75,7 @@ Using lm with log(age) function for age dependence and 0 intercept. Estimate in 
 modelCathoResLm(d, group, agebsq, rucv)
 ```
 
-#~ lmer model 
+\#\~ lmer model
 
 Each group has own log coefficient and intercept.
 
@@ -91,7 +91,10 @@ modelCathRes::plotCathRes(d, group, agebsq, rucv, ncol = 4) +
   coord_cartesian(ylim = c(.5, 1.0)) +
   geom_line(aes(x = agebsq, y = pred), color = "darkorange")
 ```
+
 ## Stan model
+
+Temps d'exécution beaucoup trop long pour le modèle le plus simple...
 
 ```{r stan}
 # Test data
@@ -103,19 +106,15 @@ dTest <- tibble(group = c(rep("A", n), rep("B", n)),
 #stanData <- tidybayes::compose_data(select(d, c(group, rucv)))
 stanDataTest <- tidybayes::compose_data(dTest)
 names(stanDataTest) <- c("G", "N_G", "R", "N")
-samples <- rstan::sampling(object = rstan::stan_model("resGroup.stan"),
+samples <- rstan::sampling(object = rstan::stan_model("resGroupSimple.stan"),
                            data = stanDataTest,
                            chains = 2,
-                           iter = 2000)
+                           iter = 1000)
 samples
 ```
 
-
-
-
 # Comparing average Cathode resistance over life
 
-```{r}
+```{r }
 
 ```
-
