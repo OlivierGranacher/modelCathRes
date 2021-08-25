@@ -62,7 +62,7 @@ modelCathoResLme <- function(d, group, age, res) {
 #'@importfrom rstanarm stan_glmer
 #'
 #' @return Stan lmer model
-#' @export
+#'
 #'
 #'
 modelCathoResLmeStan <- function(d, group, age, res) {
@@ -84,4 +84,39 @@ modelCathoResLmeStan <- function(d, group, age, res) {
                       iter = 100,
                       cores = parallel::detectCores()
                       )
+}
+
+#' calculateCathoResMean
+#'
+#' Calculates the average of groups of cathode resistance values
+#' based on a + b.log(age) model for each group
+#'
+#' @param d data.frame with data
+#' @param group char with group names
+#' @param age cell age
+#' @param res cathode resistance values
+#' @param qgeRange range of age for the calculation of the mean
+#'
+#' @importFrom magrittr %>%
+#'
+#' @return dataframe with 2 columns, name of group and average resistance for
+#' each group
+#' @export
+#'
+#'
+calculateCathodeResMean <- function(d, group, age, res, ageRange = 1:2000) {
+  form <- paste0(names(dplyr::select(d, {{res}})),
+
+                 " ~ 0 + (1 + log(", names(dplyr::select(d, {{age}})),
+                 ") | ",
+                 names(dplyr::select(d, {{group}})),
+                 ") "
+                 )
+  # Model
+  mod <- lme4::lmer(form, d)
+  # predictions for ageRange
+  groups <- d %>% select(group) %>% pull() %>% unique
+  modelr::add_predictions(expand.grid(agebsq = ageRange, group = groups), modLmer) %>%
+  group_by(group) %>%
+  summarise(meanResPred = mean(pred))
 }
