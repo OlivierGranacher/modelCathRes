@@ -115,8 +115,9 @@ calculateCathodeResMean <- function(d, group, age, res, ageRange = 1:2000) {
   # Model
   mod <- lme4::lmer(form, d)
   # predictions for ageRange
-  groups <- d %>% select(group) %>% pull() %>% unique
-  modelr::add_predictions(expand.grid(agebsq = ageRange, group = groups), modLmer) %>%
+  groups <- d %>% select({{group}}) %>% pull() %>% unique
+
+  modelr::add_predictions(expand.grid(agebsq = ageRange, group = groups), mod) %>%
   group_by(group) %>%
   summarise(meanResPred = mean(pred))
 }

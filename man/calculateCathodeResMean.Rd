@@ -15,7 +15,7 @@ calculateCathodeResMean(d, group, age, res, ageRange = 1:2000)
 
 \item{res}{cathode resistance values}
 
-\item{qgeRange}{range of age for the calculation of the mean}
+\item{ageRange}{range of age for the calculation of the mean}
 }
 \value{
 dataframe with 2 columns, name of group and average resistance for
