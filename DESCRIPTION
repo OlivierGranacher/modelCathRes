@@ -30,4 +30,5 @@ Imports:
     rstanarm,
     parallel,
     modelr,
-    magrittr
+    magrittr,
+    tidyr
