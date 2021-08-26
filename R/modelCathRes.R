@@ -95,7 +95,7 @@ modelCathoResLmeStan <- function(d, group, age, res) {
 #' @param group char with group names
 #' @param age cell age
 #' @param res cathode resistance values
-#' @param qgeRange range of age for the calculation of the mean
+#' @param ageRange range of age for the calculation of the mean
 #'
 #' @importFrom magrittr %>%
 #'

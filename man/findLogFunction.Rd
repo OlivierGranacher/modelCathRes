@@ -4,7 +4,7 @@
 \alias{findLogFunction}
 \title{findLogFunction}
 \usage{
-findLogFunction(d, age, res)
+findLogFunction(d, age, res, coeff = F)
 }
 \arguments{
 \item{d}{datatable containing the data}
@@ -12,6 +12,8 @@ findLogFunction(d, age, res)
 \item{age}{numeric pot age in days}
 
 \item{res}{numeric cathode resistance in microhm}
+
+\item{coeff}{logical if FALSE (default) return function, if TRUE returns vector c(a, b)}
 }
 \value{
 function

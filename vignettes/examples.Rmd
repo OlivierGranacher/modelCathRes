@@ -79,7 +79,7 @@ modelCathoResLm(d, group, agebsq, rucv)
 
 Each group has own log coefficient and intercept.
 
-```{r lme4_1, eval=FALSE, fig.dim=c(8,12)}
+```{r lme4_1, eval=TRUE, fig.dim=c(8,12)}
 # lmer model from lme4with formula rucv ~ 1  + (1 + log(agebsq) | group))
 (modLmer <- modelCathoResLme(d, group, agebsq, rucv))
 # Coefficients for each group
@@ -105,7 +105,6 @@ d %>%
   mutate(across(.cols = where(is.numeric), .fns =  signif, dig = 3))
 ```
 
-
 ## Stan model
 
 Temps d'exécution beaucoup trop long pour le modèle le plus simple...
@@ -126,4 +125,3 @@ samples <- rstan::sampling(object = rstan::stan_model("resGroupSimple.stan"),
                            iter = 1000)
 samples
 ```
-
