@@ -91,11 +91,11 @@ modelCathoResLmeStan <- function(d, group, age, res) {
 #' Calculates the average of groups of cathode resistance values
 #' based on a + b.log(age) model for each group
 #'
-#' @param d data.frame with data
-#' @param group char with group names
-#' @param age cell age
-#' @param res cathode resistance values
-#' @param ageRange range of age for the calculation of the mean
+#' @param .d data.frame with data
+#' @param .group char with group names
+#' @param .age cell age
+#' @param .res cathode resistance values
+#' @param .ageRange range of age for the calculation of the mean
 #'
 #' @importFrom magrittr %>%
 #'
@@ -104,20 +104,20 @@ modelCathoResLmeStan <- function(d, group, age, res) {
 #' @export
 #'
 #'
-calculateCathodeResMean <- function(d, group, age, res, ageRange = 1:2000) {
-  form <- paste0(names(dplyr::select(d, {{res}})),
+calculateCathodeResMean <- function(.d, .group, .age, .res, .ageRange = 1:2000) {
+  form <- paste0(names(dplyr::select(.d, {{.res}})),
 
-                 " ~ 0 + (1 + log(", names(dplyr::select(d, {{age}})),
+                 " ~ 0 + (1 + log(", names(dplyr::select(.d, {{.age}})),
                  ") | ",
-                 names(dplyr::select(d, {{group}})),
+                 names(dplyr::select(.d, {{.group}})),
                  ") "
                  )
   # Model
-  mod <- lme4::lmer(form, d)
+  mod <- lme4::lmer(form, .d)
   # predictions for ageRange
-  groups <- d %>% select({{group}}) %>% pull() %>% unique
+  groups <- d %>% select({{.group}}) %>% dplyr::pull() %>% unique
 
-  modelr::add_predictions(expand.grid(agebsq = ageRange, group = groups), mod) %>%
-  group_by(group) %>%
-  summarise(meanResPred = mean(pred))
+  modelr::add_predictions(expand.grid("{{.age}}" = .ageRange, "{{.group}}" = groups), mod) %>%
+  dplyr::group_by({{.group}}) %>%
+  dplyr::summarise(meanResPred = mean(pred))
 }
