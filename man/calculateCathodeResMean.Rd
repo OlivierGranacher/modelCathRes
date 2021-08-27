@@ -4,18 +4,18 @@
 \alias{calculateCathodeResMean}
 \title{calculateCathoResMean}
 \usage{
-calculateCathodeResMean(d, group, age, res, ageRange = 1:2000)
+calculateCathodeResMean(.d, .group, .age, .res, .ageRange = 1:2000)
 }
 \arguments{
-\item{d}{data.frame with data}
+\item{.d}{data.frame with data}
 
-\item{group}{char with group names}
+\item{.group}{char with group names}
 
-\item{age}{cell age}
+\item{.age}{cell age}
 
-\item{res}{cathode resistance values}
+\item{.res}{cathode resistance values}
 
-\item{ageRange}{range of age for the calculation of the mean}
+\item{.ageRange}{range of age for the calculation of the mean}
 }
 \value{
 dataframe with 2 columns, name of group and average resistance for

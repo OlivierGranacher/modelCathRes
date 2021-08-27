@@ -59,7 +59,7 @@ modelCathoResLme <- function(d, group, age, res) {
 #' @param age cell age
 #' @param res cathode resistance value
 #'
-#'@importfrom rstanarm stan_glmer
+#' @importFrom  rstanarm stan_glmer
 #'
 #' @return Stan lmer model
 #'
