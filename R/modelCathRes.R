@@ -122,7 +122,7 @@ modelCathoResLmeStan <- function(d, group, age, res) {
 calculateCathodeResMean <- function(.d, .group, .age, .res, .ageRange = 1:2000) {
 
   # test of no 0 value for age
-  minAge <- dplyr::pull(dplyr::summarise(d, min({{.age}})))
+  minAge <- dplyr::pull(dplyr::summarise(.d, min({{.age}})))
   stopifnot(minAge > 0)
 
   form <- paste0(names(dplyr::select(.d, {{.res}})),
