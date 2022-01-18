@@ -13,6 +13,10 @@
 #'
 #'
 modelCathoResLm <- function(d, group, age, res) {
+  # test of no 0 value for age
+  minAge <- dplyr::pull(dplyr::summarise(d, min({{age}})))
+  stopifnot(minAge > 0)
+
   form <- paste0(names(dplyr::select(d, {{res}})),
 
                  " ~ log(", names(dplyr::select(d, {{age}})),
@@ -33,11 +37,17 @@ modelCathoResLm <- function(d, group, age, res) {
 #' @param age cell age
 #' @param res cathode resistance value
 #'
+#'
 #' @return lmer model
 #' @export
 #'
 #'
 modelCathoResLme <- function(d, group, age, res) {
+
+  # test of no 0 value for age
+  minAge <- dplyr::pull(dplyr::summarise(d, min({{age}})))
+  stopifnot(minAge > 0)
+
   form <- paste0(names(dplyr::select(d, {{res}})),
 
                  " ~ 0 + (1 + log(", names(dplyr::select(d, {{age}})),
@@ -66,6 +76,11 @@ modelCathoResLme <- function(d, group, age, res) {
 #'
 #'
 modelCathoResLmeStan <- function(d, group, age, res) {
+
+  # test of no 0 value for age
+  minAge <- dplyr::pull(dplyr::summarise(d, min({{age}})))
+  stopifnot(minAge > 0)
+
   form <- paste0(names(dplyr::select(d, {{res}})),
 
                  " ~ 0 + (1 + log(", names(dplyr::select(d, {{age}})),
@@ -105,6 +120,11 @@ modelCathoResLmeStan <- function(d, group, age, res) {
 #'
 #'
 calculateCathodeResMean <- function(.d, .group, .age, .res, .ageRange = 1:2000) {
+
+  # test of no 0 value for age
+  minAge <- dplyr::pull(dplyr::summarise(d, min({{.age}})))
+  stopifnot(minAge > 0)
+
   form <- paste0(names(dplyr::select(.d, {{.res}})),
 
                  " ~ 0 + (1 + log(", names(dplyr::select(.d, {{.age}})),

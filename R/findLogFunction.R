@@ -18,6 +18,11 @@
 #'
 #'
 findLogFunction <- function(d, age, res, coeff = F) {
+
+  # test of no 0 value for age
+  minAge <- dplyr::pull(dplyr::summarise(d, min({{age}})))
+  stopifnot(minAge > 0)
+
 # Formula a + b log(x)
 form <- paste0(names(dplyr::select(d, {{res}})), " ~ log(", names(dplyr::select(d, {{age}})), ")")
 modlm <- stats::lm(formula = form, d)
