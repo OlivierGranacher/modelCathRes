@@ -1,0 +1,78 @@
+---
+title: "validateLogModel"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{validateLogModel}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(modelCathRes)
+library(dplyr, quietly = T, warn.conflicts = F)
+library(ggplot2)
+```
+
+# Objective
+
+> Validate the interpolation of cathode resistance with
+> `findLogFunction()` with generated data
+
+# Generated Data
+
+```{r generateData}
+#' generateCathRes
+#' 
+#' Makes fake cathode resistance value based on a + b log(age) 
+#'
+#' @param x  age of pot
+#' @param a    a coefficient
+#' @param b    b coefficient
+#' @param error error added to output
+#'
+#' @return numeric
+#' 
+#'
+#' 
+generateCathRes <- function(x,
+                            a = .6,
+                            b = 0.02,
+                            error = 0.02
+                            ) {
+  stopifnot(x > 0)
+  return(a + b * log(x) + rnorm(1, 0 , error))
+}
+
+# generate df with data
+age <- 1:2000
+cath_res <- purrr::map_dbl(age, .f = generateCathRes)
+df <- data.frame(
+  age = 1:2000,
+  cath_res = cath_res
+)
+```
+
+# Validate Model
+
+```{r validateModel}
+# Plots data
+ggplot(df, aes(x = age, y = cath_res)) +
+  geom_point(shape = 21,
+             fill = "white")+
+  labs(title = "Generated Data")
+# Validate model
+findLogFunction(df,
+                age = age,
+                res = cath_res,
+                coeff = T
+                )
+# Saves data for testing 
+#write.csv(df, "../tests/testthat/generated_res_data.csv")
+```

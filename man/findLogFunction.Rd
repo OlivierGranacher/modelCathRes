@@ -16,7 +16,7 @@ findLogFunction(d, age, res, coeff = F)
 \item{coeff}{logical if FALSE (default) return function, if TRUE returns vector c(a, b)}
 }
 \value{
-function
+function or vector
 }
 \description{
 Calculates the log function interpolating cathode resistance data

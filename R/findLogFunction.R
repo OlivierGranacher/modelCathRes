@@ -8,7 +8,7 @@
 #' @param res numeric cathode resistance in microhm
 #' @param coeff logical if FALSE (default) return function, if TRUE returns vector c(a, b)
 #'
-#' @return function
+#' @return function or vector
 #' @export
 #'
 #' @examples

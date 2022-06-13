@@ -69,7 +69,8 @@ plotCathRes(d, cod_cuve, agebsq, rucv, ncol = 4) +
 
 ## lm model
 
-Using lm with log(age) function for age dependence and 0 intercept. Estimate in table is intitial value of cathode resistance.
+Using lm with log(age) function for age dependence and 0 intercept.
+Estimate in table is inittial value of cathode resistance.
 
 ```{r compGroups, include=TRUE}
 modelCathoResLm(d, group, agebsq, rucv)
@@ -94,10 +95,11 @@ modelCathRes::plotCathRes(d, group, agebsq, rucv, ncol = 4) +
 
 ## Comparing average Cathode resistance over life
 
-Using a + b.log(age) model to estimate the mean resistance over total life
+Using a + b.log(age) model to estimate the mean resistance over total
+life
 
 ```{r compAvg}
-# Camparison of measured mean values and predicted mean values
+# Comparison of measured mean values and predicted mean values
 # 
 calculateCathodeResMean(d, group, agebsq, rucv)
 
@@ -128,3 +130,4 @@ samples <- rstan::sampling(object = rstan::stan_model("resGroupSimple.stan"),
                            iter = 1000)
 samples
 ```
+
