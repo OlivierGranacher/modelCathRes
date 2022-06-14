@@ -50,13 +50,21 @@ generateCathRes <- function(x,
   return(a + b * log(x) + rnorm(1, 0 , error))
 }
 
-# generate df with data
+# generate df with data for 1st group
 age <- 1:2000
 cath_res <- purrr::map_dbl(age, .f = generateCathRes)
 df <- data.frame(
-  age = 1:2000,
+  age = age,
   cath_res = cath_res
-)
+      )
+# generate df with data for 2nd group
+cath_res2 <- purrr::map_dbl(age, .f = generateCathRes, a = .5, b = 0.03)
+df2 <- data.frame(
+  age = age,
+  cath_res = cath_res2
+      )
+df2 <- bind_rows(df, df2)
+df2$group <- rep(c("A", "B"), each = length(age * 2))
 ```
 
 # Validate Model

@@ -30,7 +30,7 @@ modelCathoResLm <- function(d, group, age, res) {
 #' modelCathoResLme
 #'
 #' Model cathode resistance per groups with  0 fixed intercept and varying (random)
-#' intercept and slope
+#' intercept and slope using \code{lme4::lmer}
 #'
 #' @param d data.frame with data
 #' @param group char with group names
@@ -104,7 +104,7 @@ modelCathoResLmeStan <- function(d, group, age, res) {
 #' calculateCathoResMean
 #'
 #' Calculates the average of groups of cathode resistance values
-#' based on a + b.log(age) model for each group
+#' based on a + b.log(age) model for each group with \code{lme4::lmer}
 #'
 #' @param .d data.frame with data
 #' @param .group char with group names
