@@ -1,6 +1,6 @@
 Package: modelCathRes
 Title: Model Aluminium Cells Cathode Resistance Evolution with Age
-Version: 0.1.12
+Version: 0.1.13
 Authors@R: 
     person(given = "Olivier",
            family = "Granacher",

@@ -20,12 +20,14 @@ library(dplyr, quietly = T, warn.conflicts = F)
 library(ggplot2)
 ```
 
-# Objective
+## Objective
 
 > Validate the interpolation of cathode resistance with
-> `findLogFunction()` with generated data
+> `findLogFunction()` with generated data.
+>
+> Validate the functions `modelCathResLm()` and `modelCathResLme()`.
 
-# Generated Data
+## Generated Data
 
 ```{r generateData}
 #' generateCathRes
@@ -50,14 +52,14 @@ generateCathRes <- function(x,
   return(a + b * log(x) + rnorm(1, 0 , error))
 }
 
-# generate df with data for 1st group
+# generate df with data for 1st group (df)
 age <- 1:2000
 cath_res <- purrr::map_dbl(age, .f = generateCathRes)
 df <- data.frame(
   age = age,
   cath_res = cath_res
       )
-# generate df with data for 2nd group
+# generate df with data for 2nd group (df2)
 cath_res2 <- purrr::map_dbl(age, .f = generateCathRes, a = .5, b = 0.03)
 df2 <- data.frame(
   age = age,
@@ -65,22 +67,37 @@ df2 <- data.frame(
       )
 df2 <- bind_rows(df, df2)
 df2$group <- rep(c("A", "B"), each = length(age * 2))
+
+# Saves data for testing 
+#write.csv(df2, "../tests/testthat/generated_res_data.csv")
 ```
 
-# Validate Model
+## Validate `findLogFunction` and `modelCathResLm`
 
 ```{r validateModel}
 # Plots data
 ggplot(df, aes(x = age, y = cath_res)) +
   geom_point(shape = 21,
              fill = "white")+
-  labs(title = "Generated Data")
-# Validate model
+  labs(title = "Generated Data - group A")
+# Validate model Lm
 findLogFunction(df,
                 age = age,
                 res = cath_res,
                 coeff = T
                 )
-# Saves data for testing 
-#write.csv(df, "../tests/testthat/generated_res_data.csv")
+
+```
+
+## Validate `modelCathResLme`
+
+```{r validateModelLme}
+modLmer <- modelCathoResLme(
+                df2,
+                group,
+                age,
+                cath_res
+                )
+# Résultats du modèle
+coef(modLmer)$group
 ```
