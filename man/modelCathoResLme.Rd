@@ -20,5 +20,5 @@ lmer model
 }
 \description{
 Model cathode resistance per groups with  0 fixed intercept and varying (random)
-intercept and slope
+intercept and slope using \code{lme4::lmer}
 }

@@ -23,5 +23,5 @@ each group
 }
 \description{
 Calculates the average of groups of cathode resistance values
-based on a + b.log(age) model for each group
+based on a + b.log(age) model for each group with \code{lme4::lmer}
 }
